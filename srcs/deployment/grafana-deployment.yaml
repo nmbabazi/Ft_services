@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "true"   # pour que métallb utiliser une ip pour tout les services
+  labels:
+    app: grafana
+spec:
+  ports:
+  - port: 3000  #port d'exposition au loadbalancer
+    targetPort: 3000    #les port exposer par défaut dans les docker sont les ports 80 (à modifier dans le docker personnalisé)
+  selector:
+    app: grafana
+  type: LoadBalancer
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: my_grafana
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+          name: grafana
+        env:
+        - name: GF_SECURITY_ADMIN_USER
+          value: naila
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: naila1234

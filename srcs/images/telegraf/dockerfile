@@ -1,0 +1,18 @@
+FROM alpine
+
+RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.3-static_linux_amd64.tar.gz \
+    && tar -C . -xzf telegraf-1.13.3-static_linux_amd64.tar.gz \
+    && chmod +x telegraf/* \
+    #récuperer l'executable
+    && cp telegraf/telegraf /usr/bin/ \
+    #creer le dossier où mettre la conf et déplacer la conf au bon endroit.
+	&& mkdir /etc/telegraf \
+	&& mv telegraf/telegraf.conf /etc/telegraf/telegraf.conf \
+    && rm -rf *.tar.gz* telegraf/
+
+#modifier le .conf
+COPY telegraf.conf /etc/telegraf/telegraf.conf
+
+EXPOSE 8185
+
+ENTRYPOINT	["/usr/bin/telegraf"]
