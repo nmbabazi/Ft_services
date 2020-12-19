@@ -16,6 +16,7 @@ export CLUSTER_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0
 sed -i 's/172.17.0.2/'$CLUSTER_IP'/g' srcs/deployment/configmap.yaml
 sed -i 's/172.17.0.2/'$CLUSTER_IP'/g' srcs/images/ftps/start.sh
 sed -i 's/172.17.0.2/'$CLUSTER_IP'/g' srcs/images/nginx/nginx.conf
+sed -i 's/172.17.0.2/'$CLUSTER_IP'/g' srcs/images/mysql/wordpress.sql
 
 #metallb
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
@@ -41,4 +42,4 @@ echo "GRAFANA:      USER:naila-----MDP:naila1234"
 echo "FTPS:         USER:naila-----MDP:naila1234"
 
 #########demarrer le dashboard########
-xterm -hold -e "minikube dashboard" &
+minikube dashboard
