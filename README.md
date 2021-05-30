@@ -18,7 +18,7 @@ https://mariadb.com/kb/en/configuring-mariadb-for-remote-client-access/ \
 https://grafana.com/docs/grafana/latest/administration/configuration/
 
 ## What I learned
->kubertnetes deployment\
+>kubernetes deployment\
 minikube \
 writing yaml \
 fetching data from pod to visualise them on grafana 
