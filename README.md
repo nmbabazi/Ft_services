@@ -2,7 +2,9 @@
 
  A System Administration and Networking project.\
  Cluster management and deployment with Kubernetes
-
+\
+\
+![alt txt](https://github.com/nmbabazi/ft_services/blob/master/cluster.png)
 
 **os**: linux\
 **run**: ``setup.sh``
